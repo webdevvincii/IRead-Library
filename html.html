@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 bg-white/40 backdrop-blur-lg shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-600">LibrarySys</h1>
+
+            <div class="space-x-6 hidden md:flex font-medium">
+                <a href="#features" class="hover:text-blue-600">Features</a>
+                <a href="#about" class="hover:text-blue-600">About</a>
+                <a href="#portals" class="hover:text-blue-600">Portals</a>
+            </div>
+
+            <a href="#portals" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
+                Login
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="min-h-screen flex items-center bg-gradient-to-br from-blue-600 to-purple-600 text-white pt-20">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+            
+            <div>
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+                    Modern Library <br> Management System
+                </h1>
+                <p class="text-xl text-blue-100 mb-8">
+                    Efficient. Secure. Fast. Experience the next generation library platform.
+                </p>
+
+                <div class="space-x-4">
+                    <a href="#portals" 
+                       class="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow hover:bg-blue-100">
+                       Get Started
+                    </a>
+
+                    <a href="#features" 
+                       class="px-6 py-3 border border-white rounded-lg font-semibold hover:bg-white hover:text-blue-600">
+                       Learn More
+                    </a>
+                </div>
+            </div>
+
+            <div class="hidden md:block">
+                <img src="https://cdn.dribbble.com/userupload/13802019/file/original-cbb3f3d2d6c7.png?resize=1024x768" 
+                     alt="Library illustration" 
+                     class="rounded-xl shadow-xl opacity-90 hover:opacity-100 transition">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Features</h2>
+            <p class="text-gray-600">Powerful tools for both staff and members</p>
+        </div>
+
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+            <div class="p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition">
+                <div class="text-4xl mb-4">🔐</div>
+                <h3 class="font-bold text-xl mb-2">Secure Login</h3>
+                <p class="text-gray-600">Separate logins for staff and members.</p>
+            </div>
+
+            <div class="p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition">
+                <div class="text-4xl mb-4">📚</div>
+                <h3 class="font-bold text-xl mb-2">Book Management</h3>
+                <p class="text-gray-600">Borrowing, reservation, and return modules.</p>
+            </div>
+
+            <div class="p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition">
+                <div class="text-4xl mb-4">⚡</div>
+                <h3 class="font-bold text-xl mb-2">Real-time Updates</h3>
+                <p class="text-gray-600">Instant notifications for members and staff.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+
+            <img src="https://cdn.dribbble.com/userupload/13178553/file/original-cf3b3a06cdd167bd035b76fb9e064304.png?resize=1024x768"
+                 class="rounded-2xl shadow-xl">
+
+            <div>
+                <h2 class="text-4xl font-bold mb-6">Built for Speed & Simplicity</h2>
+                <p class="text-gray-700 text-lg mb-6">
+                    Our system is designed to make library operations smooth, fast, and intuitive.
+                    With modern UI, better workflows, and optimized performance, you can manage
+                    everything with ease.
+                </p>
+                <a href="README.md" 
+                   class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
+                    Read Documentation
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTAL SECTION -->
+    <section id="portals" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Choose Your Portal</h2>
+            <p class="text-gray-600">Access the system depending on your role</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+            <!-- Staff Portal -->
+            <a href="staff/login.html" 
+               class="p-10 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-2xl shadow-xl hover:scale-105 transition">
+                <div class="text-5xl mb-4">👨‍💼</div>
+                <h3 class="text-2xl font-bold mb-2">Staff Portal</h3>
+                <p class="text-sm text-blue-100 mb-4">Manage books, approve requests, oversee library data.</p>
+                <span class="underline">Login →</span>
+            </a>
+
+            <!-- Member Portal -->
+            <a href="member/login.html" 
+               class="p-10 bg-gradient-to-br from-purple-500 to-purple-700 text-white rounded-2xl shadow-xl hover:scale-105 transition">
+                <div class="text-5xl mb-4">👤</div>
+                <h3 class="text-2xl font-bold mb-2">Member Portal</h3>
+                <p class="text-sm text-purple-100 mb-4">Borrow books, search catalog, reserve items.</p>
+                <span class="underline">Login / Register →</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 py-10 text-center">
+        <p>&copy; 2025 Library Management System — All Rights Reserved</p>
+        <p class="text-sm mt-2">Built using HTML + TailwindCSS</p>
+    </footer>
+
+</body>
+</html>

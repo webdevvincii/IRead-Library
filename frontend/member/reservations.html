@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservations - Library Member Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-lg sm:text-xl font-bold text-blue-600">📚 Library MS</h1>
+                    </div>
+                    <button id="mobileNavBtn" class="md:hidden ml-4 text-gray-600">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                    <div id="desktopNav" class=" md:flex md:space-x-4 lg:space-x-8 md:ml-6">
+                        <a href="dashboard.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium whitespace-nowrap">Home</a>
+                        <a href="books.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium whitespace-nowrap">Books</a>
+                        <a href="my-borrows.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium whitespace-nowrap">My Borrows</a>
+                        <a href="reservations.html" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium whitespace-nowrap">Reservation</a>
+                        <a href="fines.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium whitespace-nowrap">Fines</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <div class="relative hidden md:block">
+                        <button id="notificationBtn" class="p-2 rounded-full text-gray-400 hover:text-gray-500 relative">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                            <span id="notificationBadge" class="hidden absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
+                        </button>
+                    </div>
+                    <span id="userName" class="text-xs sm:text-sm text-gray-700 hidden sm:inline"></span>
+                    <button id="logoutBtn" class="bg-red-600 hover:bg-red-700 text-white px-3 sm:px-4 py-2 rounded-md text-sm font-medium">
+                        <svg class="h-5 w-5 inline-block md:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                        <span class="hidden md:inline">Logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileNav" class="hidden md:hidden border-t border-gray-200 bg-white">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="dashboard.html" class="border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 text-base font-medium">
+                    🏠 Home
+                </a>
+                <a href="books.html" class="border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 text-base font-medium">
+                    📚 Books
+                </a>
+                <a href="my-borrows.html" class="border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 text-base font-medium">
+                    📖 My Borrows
+                </a>
+                <a href="reservations.html" class="bg-blue-50 border-l-4 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 text-base font-medium">
+                    🔖 Reservation
+                </a>
+                <a href="fines.html" class="border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 text-base font-medium">
+                    💰 Fines
+                </a>
+                <div class="border-t border-gray-200 pt-2 mt-2">
+                    <div class="px-3 py-2">
+                        <span id="mobileUserName" class="text-sm text-gray-700 block mb-2 font-medium"></span>
+                        <button id="mobileLogoutBtn" class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center">
+                            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                            </svg>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">My Reservations</h2>
+        
+        <!-- Tab Navigation -->
+        <div class="bg-white rounded-lg shadow mb-6">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8 px-6" aria-label="Tabs">
+                    <button onclick="switchTab('active')" id="tab-active" class="tab-button border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Active Reservations
+                    </button>
+                    <button onclick="switchTab('expired')" id="tab-expired" class="tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                        Expired
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Active Reservations -->
+        <div id="content-active" class="tab-content">
+            <div id="activeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="text-center py-8 text-gray-500 col-span-full">
+                    <i class="fas fa-spinner fa-spin mr-2"></i>Loading active reservations...
+                </div>
+            </div>
+        </div>
+
+        <!-- Expired Reservations -->
+        <div id="content-expired" class="tab-content hidden">
+            <div id="expiredGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="text-center py-8 text-gray-500 col-span-full">
+                    <i class="fas fa-spinner fa-spin mr-2"></i>Loading expired reservations...
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cancel Confirmation Modal -->
+    <div id="cancelModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
+            <h3 class="text-lg font-bold mb-4">Cancel Reservation</h3>
+            <p class="text-gray-600 mb-6">Are you sure you want to cancel this reservation?</p>
+            <div class="flex justify-end space-x-3">
+                <button onclick="closeCancelModal()" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                    No, Keep It
+                </button>
+                <button onclick="confirmCancel()" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                    Yes, Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="js/mobile-menu.js"></script>
+    <script>
+        let currentUser = null;
+        let currentTab = 'active';
+        let reservationToCancel = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkAuth();
+            await loadReservations();
+        });
+
+        async function checkAuth() {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (!session) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', session.user.id)
+                    .single();
+                
+                if (!profile || profile.role !== 'member') {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                currentUser = profile;
+                document.getElementById('userName').textContent = profile.full_name || profile.email;
+                
+                document.getElementById('logoutBtn').addEventListener('click', async () => {
+                    await supabase.auth.signOut();
+                    window.location.href = 'login.html';
+                });
+            } catch (error) {
+                console.error('Auth error:', error);
+                window.location.href = 'login.html';
+            }
+        }
+
+        async function loadReservations() {
+            await loadActiveReservations();
+            await loadExpiredReservations();
+        }
+
+        async function loadActiveReservations() {
+            try {
+                const { data, error } = await supabase
+                    .from('reservations')
+                    .select('*, books(*)')
+                    .eq('member_id', currentUser.id)
+                    .eq('status', 'active')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                const grid = document.getElementById('activeGrid');
+                if (!data || data.length === 0) {
+                    grid.innerHTML = '<div class="text-center py-8 text-gray-500 col-span-full"><i class="fas fa-inbox mr-2"></i>No active reservations</div>';
+                    return;
+                }
+
+                grid.innerHTML = data.map(reservation => {
+                    const expiresAt = new Date(reservation.expires_at);
+                    const today = new Date();
+                    const daysLeft = Math.ceil((expiresAt - today) / (1000 * 60 * 60 * 24));
+                    const isExpiringSoon = daysLeft <= 2;
+                    
+                    return `
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden ${isExpiringSoon ? 'border-2 border-yellow-500' : ''}">
+                            <div class="p-6">
+                                <div class="flex items-start justify-between mb-3">
+                                    <span class="px-2 py-1 text-xs rounded-full ${isExpiringSoon ? 'bg-yellow-100 text-yellow-800' : 'bg-blue-100 text-blue-800'}">
+                                        ${isExpiringSoon ? 'Expiring Soon' : 'Reserved'}
+                                    </span>
+                                    <span class="text-xs text-gray-500">${reservation.reservation_number}</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">${reservation.books.title}</h3>
+                                <p class="text-sm text-gray-600 mb-1">by ${reservation.books.author}</p>
+                                <p class="text-xs text-gray-500 mb-3">ISBN: ${reservation.books.isbn}</p>
+                                <div class="border-t pt-3 mt-3 space-y-1 text-sm">
+                                    <p><span class="font-medium">Reserved:</span> ${new Date(reservation.created_at).toLocaleDateString()}</p>
+                                    <p><span class="font-medium">Expires:</span> ${expiresAt.toLocaleDateString()}</p>
+                                    <p class="${isExpiringSoon ? 'text-yellow-600 font-semibold' : 'text-gray-600'}">
+                                        ${daysLeft} days left
+                                    </p>
+                                </div>
+                                <button onclick="openCancelModal('${reservation.id}')" class="mt-4 w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
+                                    <i class="fas fa-times mr-2"></i>Cancel Reservation
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error loading active reservations:', error);
+                document.getElementById('activeGrid').innerHTML = '<div class="text-center py-8 text-red-500 col-span-full">Error loading reservations</div>';
+            }
+        }
+
+        async function loadExpiredReservations() {
+            try {
+                const { data, error } = await supabase
+                    .from('reservations')
+                    .select('*, books(*)')
+                    .eq('member_id', currentUser.id)
+                    .in('status', ['expired', 'cancelled', 'fulfilled'])
+                    .order('updated_at', { ascending: false })
+                    .limit(20);
+
+                if (error) throw error;
+
+                const grid = document.getElementById('expiredGrid');
+                if (!data || data.length === 0) {
+                    grid.innerHTML = '<div class="text-center py-8 text-gray-500 col-span-full"><i class="fas fa-inbox mr-2"></i>No expired reservations</div>';
+                    return;
+                }
+
+                grid.innerHTML = data.map(reservation => {
+                    const statusColors = {
+                        'expired': 'bg-gray-100 text-gray-800',
+                        'cancelled': 'bg-red-100 text-red-800',
+                        'fulfilled': 'bg-green-100 text-green-800'
+                    };
+                    
+                    return `
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden opacity-75">
+                            <div class="p-6">
+                                <div class="flex items-start justify-between mb-3">
+                                    <span class="px-2 py-1 text-xs rounded-full ${statusColors[reservation.status] || 'bg-gray-100 text-gray-800'}">
+                                        ${reservation.status.charAt(0).toUpperCase() + reservation.status.slice(1)}
+                                    </span>
+                                    <span class="text-xs text-gray-500">${reservation.reservation_number}</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">${reservation.books.title}</h3>
+                                <p class="text-sm text-gray-600 mb-1">by ${reservation.books.author}</p>
+                                <p class="text-xs text-gray-500 mb-3">ISBN: ${reservation.books.isbn}</p>
+                                <div class="border-t pt-3 mt-3 space-y-1 text-sm">
+                                    <p><span class="font-medium">Reserved:</span> ${new Date(reservation.created_at).toLocaleDateString()}</p>
+                                    ${reservation.fulfilled_at ? `<p><span class="font-medium">Fulfilled:</span> ${new Date(reservation.fulfilled_at).toLocaleDateString()}</p>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error loading expired reservations:', error);
+                document.getElementById('expiredGrid').innerHTML = '<div class="text-center py-8 text-red-500 col-span-full">Error loading reservations</div>';
+            }
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-blue-600');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+            document.getElementById(`tab-${tab}`).classList.remove('border-transparent', 'text-gray-500');
+            document.getElementById(`tab-${tab}`).classList.add('border-blue-500', 'text-blue-600');
+            
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`content-${tab}`).classList.remove('hidden');
+        }
+
+        function openCancelModal(reservationId) {
+            reservationToCancel = reservationId;
+            document.getElementById('cancelModal').classList.remove('hidden');
+        }
+
+        function closeCancelModal() {
+            reservationToCancel = null;
+            document.getElementById('cancelModal').classList.add('hidden');
+        }
+
+        async function confirmCancel() {
+            if (!reservationToCancel) return;
+
+            try {
+                const { error } = await supabase
+                    .from('reservations')
+                    .update({ status: 'cancelled', updated_at: new Date().toISOString() })
+                    .eq('id', reservationToCancel);
+
+                if (error) throw error;
+
+                closeCancelModal();
+                await loadReservations();
+                showNotification('Reservation cancelled successfully', 'success');
+            } catch (error) {
+                console.error('Error cancelling reservation:', error);
+                showNotification('Failed to cancel reservation', 'error');
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const bgColor = type === 'success' ? 'bg-green-500' : 
+                            type === 'error' ? 'bg-red-500' : 'bg-blue-500';
+            
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

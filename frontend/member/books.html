@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books - Library Member Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-lg sm:text-xl font-bold text-blue-600">📚 Library MS</h1>
+                    </div>
+                    <button id="mobileNavBtn" class="md:hidden ml-4 text-gray-600">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                    <div id="desktopNav" class="md:flex md:space-x-4 lg:space-x-8 md:ml-6">
+                        <a href="dashboard.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium whitespace-nowrap">Home</a>
+                        <a href="books.html" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium whitespace-nowrap">Books</a>
+                        <a href="my-borrows.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium whitespace-nowrap">My Borrows</a>
+                        <a href="reservations.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium whitespace-nowrap">Reservation</a>
+                        <a href="fines.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium whitespace-nowrap">Fines</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <div class="relative hidden md:block">
+                        <button id="notificationBtn" class="p-2 rounded-full text-gray-400 hover:text-gray-500 relative">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                            <span id="notificationBadge" class="hidden absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
+                        </button>
+                    </div>
+                    <span id="userName" class="text-xs sm:text-sm text-gray-700 hidden sm:inline"></span>
+                    <button id="logoutBtn" class="bg-red-600 hover:bg-red-700 text-white px-3 sm:px-4 py-2 rounded-md text-sm font-medium">
+                        <svg class="h-5 w-5 inline-block md:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                        <span class="hidden md:inline">Logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileNav" class="hidden md:hidden border-t border-gray-200 bg-white">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="dashboard.html" class="border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 text-base font-medium">
+                    🏠 Home
+                </a>
+                <a href="books.html" class="bg-blue-50 border-l-4 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 text-base font-medium">
+                    📚 Books
+                </a>
+                <a href="my-borrows.html" class="border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 text-base font-medium">
+                    📖 My Borrows
+                </a>
+                <a href="reservations.html" class="border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 text-base font-medium">
+                    🔖 Reservation
+                </a>
+                <a href="fines.html" class="border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 text-base font-medium">
+                    💰 Fines
+                </a>
+                <div class="border-t border-gray-200 pt-2 mt-2">
+                    <div class="px-3 py-2">
+                        <span id="mobileUserName" class="text-sm text-gray-700 block mb-2 font-medium"></span>
+                        <button id="mobileLogoutBtn" class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center">
+                            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                            </svg>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Books</h2>
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <input type="text" id="searchInput" placeholder="Search by title, author, ISBN..." class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 mb-4">
+        </div>
+        <div id="booksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="text-center py-8 text-gray-500 col-span-full">
+                <i class="fas fa-spinner fa-spin mr-2"></i>Loading books...
+            </div>
+        </div>
+    </main>
+
+    <!-- Borrow Modal -->
+    <div id="borrowModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-900">Borrow Book</h3>
+                <button onclick="closeBorrowModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="borrowBookTitle" class="text-sm text-gray-600 mb-4"></div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+                    <input type="date" id="borrowStartDate" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Duration (days)</label>
+                    <select id="borrowDuration" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="1">1 day</option>
+                        <option value="2">2 days</option>
+                        <option value="3" selected>3 days</option>
+                        <option value="4">4 days</option>
+                        <option value="5">5 days</option>
+                    </select>
+                </div>
+                <div class="bg-blue-50 p-3 rounded-lg">
+                    <p class="text-sm text-blue-800">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Due Date: <span id="dueDate" class="font-semibold"></span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeBorrowModal()" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+                <button onclick="confirmBorrow()" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <i class="fas fa-check mr-2"></i>Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="js/mobile-menu.js"></script>
+    <script>
+    let books = [];
+    let userProfile = null;
+    let selectedBookId = null;
+    let selectedBookTitle = null;
+    
+    document.addEventListener('DOMContentLoaded', async () => {
+        await getProfile();
+        await loadBooks();
+        document.getElementById('searchInput').addEventListener('input', filterBooks);
+        
+        // Set minimum date to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('borrowStartDate').min = tomorrow.toISOString().split('T')[0];
+        document.getElementById('borrowStartDate').value = tomorrow.toISOString().split('T')[0];
+        
+        // Update due date when start date or duration changes
+        document.getElementById('borrowStartDate').addEventListener('change', updateDueDate);
+        document.getElementById('borrowDuration').addEventListener('change', updateDueDate);
+        updateDueDate();
+    });
+
+    async function getProfile() {
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = 'login.html';
+                return;
+            }
+            const { data: profile, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', session.user.id)
+                .single();
+            if (error || !profile || profile.role !== 'member') {
+                await supabase.auth.signOut();
+                window.location.href = 'login.html';
+                return;
+            }
+            userProfile = profile;
+            document.getElementById('userName').textContent = profile.full_name || profile.email;
+            document.getElementById('logoutBtn').onclick = async () => {
+                await supabase.auth.signOut();
+                localStorage.clear();
+                window.location.href = 'login.html';
+            };
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+            window.location.href = 'login.html';
+        }
+    }
+
+    async function loadBooks() {
+        try {
+            const { data, error } = await supabase
+                .from('books')
+                .select('*')
+                .is('deleted_at', null)
+                .order('title');
+            if (error) throw error;
+            
+            // Calculate available copies for each book
+            const booksWithAvailability = await Promise.all((data || []).map(async (book) => {
+                const { data: copies, error: copiesError } = await supabase
+                    .from('book_copies')
+                    .select('status')
+                    .eq('book_id', book.id);
+                
+                if (!copiesError && copies) {
+                    book.available_copies = copies.filter(c => c.status === 'available').length;
+                } else {
+                    book.available_copies = book.total_copies || 0;
+                }
+                return book;
+            }));
+            
+            books = booksWithAvailability;
+            displayBooks(books);
+        } catch (error) {
+            console.error('Error loading books:', error);
+            document.getElementById('booksTableBody').innerHTML = `<tr><td colspan="6" class="px-6 py-4 text-center text-red-500">Error loading books: ${error.message}</td></tr>`;
+        }
+    }
+
+    function displayBooks(booksToDisplay) {
+        const grid = document.getElementById('booksGrid');
+        if (booksToDisplay.length === 0) {
+            grid.innerHTML = `<div class="text-center py-8 text-gray-500 col-span-full"><i class="fas fa-book-open mr-2"></i>No books found</div>`;
+            return;
+        }
+        grid.innerHTML = booksToDisplay.map(book => {
+            const available = book.available_copies ?? (book.total_copies || 0);
+            return `<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="p-6">
+                    <div class="flex items-start justify-between mb-3">
+                        <span class="px-2 py-1 text-xs rounded-full bg-indigo-100 text-indigo-800">${book.category || 'Uncategorized'}</span>
+                        <span class="px-2 py-1 text-xs rounded-full ${available > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                            ${available} available
+                        </span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">${book.title || 'Untitled'}</h3>
+                    <p class="text-sm text-gray-600 mb-1">by ${book.author || 'Unknown'}</p>
+                    <p class="text-xs text-gray-500 mb-3">ISBN: ${book.isbn || 'N/A'}</p>
+                    ${book.description ? `<p class="text-sm text-gray-600 mb-4 line-clamp-3">${book.description}</p>` : ''}
+                    <div class="flex gap-2">
+                        ${available > 0 ? 
+                            `<button class='flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition' onclick='openBorrowModal("${book.id}", "${book.title.replace(/'/g, "\\'")}","${book.author.replace(/'/g, "\\'")}","${book.isbn}")'>
+                                <i class="fas fa-book mr-2"></i>Borrow
+                            </button>` : 
+                            `<button class='flex-1 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition' onclick='reserveBook("${book.id}", "${book.title.replace(/'/g, "\\'")}","${book.author.replace(/'/g, "\\'")}","${book.isbn}")'>
+                                <i class="fas fa-bookmark mr-2"></i>Reserve
+                            </button>`}
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function filterBooks() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        let filtered = books.filter(book => {
+            return (!searchTerm ||
+                (book.title && book.title.toLowerCase().includes(searchTerm)) ||
+                (book.author && book.author.toLowerCase().includes(searchTerm)) ||
+                (book.isbn && book.isbn.toLowerCase().includes(searchTerm)));
+        });
+        displayBooks(filtered);
+    }
+
+    function openBorrowModal(bookId, bookTitle, author, isbn) {
+        selectedBookId = bookId;
+        selectedBookTitle = bookTitle;
+        document.getElementById('borrowBookTitle').innerHTML = `
+            <strong>${bookTitle}</strong><br>
+            <span class="text-xs">by ${author} • ISBN: ${isbn}</span>
+        `;
+        document.getElementById('borrowModal').classList.remove('hidden');
+    }
+
+    function closeBorrowModal() {
+        document.getElementById('borrowModal').classList.add('hidden');
+        selectedBookId = null;
+        selectedBookTitle = null;
+    }
+
+    function updateDueDate() {
+        const startDate = document.getElementById('borrowStartDate').value;
+        const duration = parseInt(document.getElementById('borrowDuration').value);
+        
+        if (startDate) {
+            const start = new Date(startDate);
+            const due = new Date(start);
+            due.setDate(due.getDate() + duration);
+            
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            document.getElementById('dueDate').textContent = due.toLocaleDateString('en-US', options);
+        }
+    }
+
+    async function confirmBorrow() {
+        if (!userProfile || !selectedBookId) return;
+        
+        const startDate = document.getElementById('borrowStartDate').value;
+        const duration = parseInt(document.getElementById('borrowDuration').value);
+        
+        if (!startDate) {
+            alert('Please select a start date');
+            return;
+        }
+        
+        // Generate request number
+        const now = new Date();
+        const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+        const randomNum = Math.floor(Math.random() * 9999).toString().padStart(4, '0');
+        const requestNumber = `REQ-${dateStr}-${randomNum}`;
+        
+        try {
+            const { error } = await supabase
+                .from('borrow_requests')
+                .insert({
+                    request_number: requestNumber,
+                    book_id: selectedBookId,
+                    member_id: userProfile.id,
+                    requested_start_date: startDate,
+                    requested_duration: duration,
+                    status: 'pending'
+                });
+            if (error) throw error;
+            alert(`Borrow request for "${selectedBookTitle}" submitted!\nRequest #: ${requestNumber}\nStart: ${startDate}\nDuration: ${duration} day(s)`);
+            closeBorrowModal();
+        } catch (error) {
+            console.error('Borrow error:', error);
+            alert('Error submitting borrow request: ' + error.message);
+        }
+    }
+
+    async function reserveBook(bookId, bookTitle, author, isbn) {
+        if (!userProfile) return;
+        try {
+            const { error } = await supabase
+                .from('reservations')
+                .insert({
+                    book_id: bookId,
+                    member_id: userProfile.id,
+                    status: 'active',
+                    queue_position: 1
+                });
+            if (error) throw error;
+            alert(`Reservation for "${bookTitle}" submitted successfully!`);
+        } catch (error) {
+            console.error('Reservation error:', error);
+            alert('Error submitting reservation: ' + error.message);
+        }
+    }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></script>
+</body>
+</html>

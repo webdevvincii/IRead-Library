@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Library Staff Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-indigo-600 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <button id="mobileMenuBtn" class="lg:hidden mr-3 text-white hover:text-indigo-200">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <i class="fas fa-book-reader text-2xl mr-3"></i>
+                    <span class="font-bold text-lg sm:text-xl">Library Staff Portal</span>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <span id="staffName" class="text-xs sm:text-sm hidden sm:inline"></span>
+                    <button onclick="logout()" class="bg-indigo-700 hover:bg-indigo-800 px-2 sm:px-4 py-2 rounded text-sm">
+                        <i class="fas fa-sign-out-alt sm:mr-2"></i><span class="hidden sm:inline">Logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar & Content -->
+    <div class="flex">
+        <!-- Mobile Menu Overlay -->
+        <div id="mobileMenuOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"></div>
+        
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out w-64 bg-white shadow-md min-h-screen z-50">
+            <nav class="mt-6">
+                <a href="dashboard.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-home w-6"></i>
+                    <span class="ml-3">Dashboard</span>
+                </a>
+                <a href="books.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-book w-6"></i>
+                    <span class="ml-3">Books</span>
+                </a>
+                <a href="borrow-requests.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-clipboard-list w-6"></i>
+                    <span class="ml-3">Borrow Requests</span>
+                </a>
+                <a href="active-borrows.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-book-open w-6"></i>
+                    <span class="ml-3">Active Borrows</span>
+                </a>
+                <a href="returns.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-undo w-6"></i>
+                    <span class="ml-3">Returns</span>
+                </a>
+                <a href="members.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-users w-6"></i>
+                    <span class="ml-3">Members</span>
+                </a>
+                <a href="fines.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-money-bill w-6"></i>
+                    <span class="ml-3">Fines</span>
+                </a>
+                <a href="reports.html" class="flex items-center px-6 py-3 text-indigo-600 bg-indigo-50 border-r-4 border-indigo-600">
+                    <i class="fas fa-chart-bar w-6"></i>
+                    <span class="ml-3">Reports</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-3xl font-bold text-gray-800 mb-6">Reports & Analytics</h1>
+                
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Total Books</p>
+                                <p id="totalBooks" class="text-3xl font-bold text-gray-900">-</p>
+                            </div>
+                            <i class="fas fa-book text-4xl text-blue-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Total Members</p>
+                                <p id="totalMembers" class="text-3xl font-bold text-gray-900">-</p>
+                            </div>
+                            <i class="fas fa-users text-4xl text-green-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Active Borrows</p>
+                                <p id="activeBorrows" class="text-3xl font-bold text-gray-900">-</p>
+                            </div>
+                            <i class="fas fa-book-open text-4xl text-yellow-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Total Fines</p>
+                                <p id="totalFines" class="text-3xl font-bold text-gray-900">-</p>
+                            </div>
+                            <i class="fas fa-money-bill text-4xl text-red-500"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Most Borrowed Books -->
+                <div class="bg-white rounded-lg shadow p-6 mb-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Most Borrowed Books</h2>
+                    <div id="mostBorrowed" class="space-y-2">
+                        <p class="text-gray-500">Loading...</p>
+                    </div>
+                </div>
+
+                <!-- Active Members -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Recent Activity</h2>
+                    <div id="recentActivity" class="space-y-2">
+                        <p class="text-gray-500">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="js/staff-common.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const profile = await StaffCommon.checkAuth();
+        if (profile) {
+            StaffCommon.setupUserInfo(profile);
+            StaffCommon.setupLogout();
+        }
+        loadReports();
+    });
+
+    async function loadReports() {
+        try {
+            // Total Books
+            const { count: booksCount } = await supabase
+                .from('books')
+                .select('*', { count: 'exact', head: true })
+                .is('deleted_at', null);
+            document.getElementById('totalBooks').textContent = booksCount || 0;
+
+            // Total Members
+            const { count: membersCount } = await supabase
+                .from('profiles')
+                .select('*', { count: 'exact', head: true })
+                .eq('role', 'member');
+            document.getElementById('totalMembers').textContent = membersCount || 0;
+
+            // Active Borrows
+            const { count: borrowsCount } = await supabase
+                .from('borrow_records')
+                .select('*', { count: 'exact', head: true })
+                .in('status', ['active', 'overdue']);
+            document.getElementById('activeBorrows').textContent = borrowsCount || 0;
+
+            // Total Fines
+            const { data: fines } = await supabase
+                .from('fines')
+                .select('total_amount');
+            const totalFines = fines?.reduce((sum, f) => sum + (f.total_amount || 0), 0) || 0;
+            document.getElementById('totalFines').textContent = '₱' + totalFines.toFixed(2);
+
+            // Most Borrowed
+            document.getElementById('mostBorrowed').innerHTML = '<p class="text-gray-500">Feature coming soon...</p>';
+            
+            // Recent Activity
+            document.getElementById('recentActivity').innerHTML = '<p class="text-gray-500">Feature coming soon...</p>';
+
+        } catch (error) {
+            console.error('Error loading reports:', error);
+        }
+    }
+
+    function logout() {
+        supabase.auth.signOut();
+        localStorage.clear();
+        window.location.href = 'login.html';
+    }
+    </script>
+    <script src="js/mobile-menu.js"></script>
+</body>
+</html>

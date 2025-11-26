@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members - Library Staff Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-indigo-600 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <button id="mobileMenuBtn" class="lg:hidden mr-3 text-white hover:text-indigo-200">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <i class="fas fa-book-reader text-2xl mr-3"></i>
+                    <span class="font-bold text-lg sm:text-xl">Library Staff Portal</span>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <span id="staffName" class="text-xs sm:text-sm hidden sm:inline"></span>
+                    <button onclick="logout()" class="bg-indigo-700 hover:bg-indigo-800 px-2 sm:px-4 py-2 rounded text-sm">
+                        <i class="fas fa-sign-out-alt sm:mr-2"></i><span class="hidden sm:inline">Logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar & Content -->
+    <div class="flex">
+        <!-- Mobile Menu Overlay -->
+        <div id="mobileMenuOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"></div>
+        
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out w-64 bg-white shadow-md min-h-screen z-50">
+            <nav class="mt-6">
+                <a href="dashboard.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-home w-6"></i>
+                    <span class="ml-3">Dashboard</span>
+                </a>
+                <a href="books.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-book w-6"></i>
+                    <span class="ml-3">Books</span>
+                </a>
+                <a href="borrow-requests.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-clipboard-list w-6"></i>
+                    <span class="ml-3">Borrow Requests</span>
+                </a>
+                <a href="active-borrows.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-book-open w-6"></i>
+                    <span class="ml-3">Active Borrows</span>
+                </a>
+                <a href="returns.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-undo w-6"></i>
+                    <span class="ml-3">Returns</span>
+                </a>
+                <a href="members.html" class="flex items-center px-6 py-3 text-indigo-600 bg-indigo-50 border-r-4 border-indigo-600">
+                    <i class="fas fa-users w-6"></i>
+                    <span class="ml-3">Members</span>
+                </a>
+                <a href="fines.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-money-bill w-6"></i>
+                    <span class="ml-3">Fines</span>
+                </a>
+                <a href="reports.html" class="flex items-center px-6 py-3 text-gray-700 hover:bg-indigo-50">
+                    <i class="fas fa-chart-bar w-6"></i>
+                    <span class="ml-3">Reports</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-3xl font-bold text-gray-800 mb-6">Members Management</h1>
+                
+                <div class="bg-white rounded-lg shadow p-6 mb-6">
+                    <input type="text" id="searchInput" placeholder="Search by name, email, member ID..." class="w-full px-4 py-2 border rounded-lg">
+                </div>
+
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Member ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Joined</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="membersTableBody" class="bg-white divide-y divide-gray-200">
+                            <tr><td colspan="6" class="px-6 py-4 text-center text-gray-500">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="js/staff-common.js"></script>
+    <script>
+    let members = [];
+    
+    document.addEventListener('DOMContentLoaded', async () => {
+        const profile = await StaffCommon.checkAuth();
+        if (profile) {
+            StaffCommon.setupUserInfo(profile);
+            StaffCommon.setupLogout();
+        }
+        loadMembers();
+        document.getElementById('searchInput').addEventListener('input', filterMembers);
+    });
+
+    async function loadMembers() {
+        try {
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('role', 'member')
+                .order('created_at', { ascending: false });
+            
+            if (error) throw error;
+            members = data || [];
+            displayMembers(members);
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('membersTableBody').innerHTML = 
+                `<tr><td colspan="6" class="px-6 py-4 text-center text-red-500">Error loading members</td></tr>`;
+        }
+    }
+
+    function displayMembers(membersList) {
+        const tbody = document.getElementById('membersTableBody');
+        if (membersList.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-gray-500">No members found</td></tr>';
+            return;
+        }
+        tbody.innerHTML = membersList.map(member => `
+            <tr>
+                <td class="px-6 py-4 text-sm">${member.member_id || 'N/A'}</td>
+                <td class="px-6 py-4 text-sm">${member.full_name || 'N/A'}</td>
+                <td class="px-6 py-4 text-sm">${member.email}</td>
+                <td class="px-6 py-4 text-sm">
+                    <span class="px-2 py-1 text-xs rounded-full ${
+                        member.member_status === 'active' ? 'bg-green-100 text-green-800' :
+                        member.member_status === 'penalized' ? 'bg-red-100 text-red-800' :
+                        'bg-gray-100 text-gray-800'
+                    }">${member.member_status || 'active'}</span>
+                </td>
+                <td class="px-6 py-4 text-sm">${member.created_at?.split('T')[0] || 'N/A'}</td>
+                <td class="px-6 py-4 text-sm">
+                    <button onclick="viewMember('${member.id}')" class="text-blue-600 hover:text-blue-800">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function filterMembers() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = members.filter(m => 
+            (m.full_name && m.full_name.toLowerCase().includes(searchTerm)) ||
+            (m.email && m.email.toLowerCase().includes(searchTerm)) ||
+            (m.member_id && m.member_id.toLowerCase().includes(searchTerm))
+        );
+        displayMembers(filtered);
+    }
+
+    function viewMember(id) {
+        const member = members.find(m => m.id === id);
+        if (member) {
+            alert(`Member Details:\n\nID: ${member.member_id}\nName: ${member.full_name}\nEmail: ${member.email}\nStatus: ${member.member_status}\nViolations: ${member.total_violations || 0}`);
+        }
+    }
+
+    function logout() {
+        supabase.auth.signOut();
+        localStorage.clear();
+        window.location.href = 'login.html';
+    }
+    </script>
+    <script src="js/mobile-menu.js"></script>
+</body>
+</html>
